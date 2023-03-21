@@ -1,0 +1,75 @@
+GET http://localhost:5000/faculties/
+
+###
+
+GET http://localhost:3000/faculties/63e7a33bc120a735ce9dd094
+
+###
+
+POST http://localhost:3000/faculties/
+Content-Type: application/json
+
+{
+    "name": "test faculty2",
+    "floors": ["63e7ecae53abbc7a1be20c93"],
+    "pulpits": []
+}
+
+###
+
+DELETE http://localhost:3000/faculties/63e7ecbf53abbc7a1be20c95
+
+
+###
+
+POST http://localhost:3000/floors/
+Content-Type: application/json
+
+{
+    "number": 7,
+    "faculty": "test faculty",
+    "rooms": []
+}
+
+###
+
+DELETE http://localhost:3000/floors/7
+
+###
+
+POST http://localhost:5000/rooms/
+Content-Type: application/json
+
+{
+    "number": 113,
+    "floor": 1,
+    "faculty": "test faculty",
+    "capacity": 20,
+    "type": "Lab",
+    "photo_links": [],
+    "description": "Just average lab",
+    "assistant": "John Doe",
+    "pulpits": ["random pulpit", "random pulpit2"],
+    "co2": [],
+    "temperature": [],
+    "co2_history": [],
+    "temperature_history": []
+}
+
+###
+
+DELETE http://localhost:3000/rooms/112
+
+###
+POST http://localhost:3000/pulpits/
+Content-Type: application/json
+
+{
+    "name": "random pulpit2",
+    "faculty": "test faculty",
+    "rooms": []
+}
+
+###
+
+DELETE http://localhost:3000/pulpits/random pulpit2

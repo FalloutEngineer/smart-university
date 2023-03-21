@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>MTB KSU</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link href="vendor/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css">
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <!-- <link href="css/animate.css" rel="stylesheet"> -->
+    <link href="vendor/swiper/css/swiper.min.css" rel="stylesheet" type="text/css">
+    <link href="css/style.min.css" rel="stylesheet" type="text/css">
+    <script src="node_modules/@fortawesome/fontawesome-free/js/all.js"></script>
+    <link rel="stylesheet" href="tippy.js@6.3.7/animations/scale.css">
+    <script src="@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="tippy.js@6.3.7/dist/tippy-bundle.umd.js"></script>
+    <script src="@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="tippy.js@6.3.7/dist/tippy-bundle.umd.min.js"></script>
+</head>
+
+<body id="login-page">
+    <div class="login__container">
+        <form @submit.prevent="auth" id="login-body" class="login__body">
+            <h2 class="login__heading">
+                Увійти
+            </h2>
+            <div class="login__item">
+                <label for="login">Логін</label>
+                <input v-model="login" id="login" type="text" class="login__input login__login" placeholder="Логін">
+            </div>
+            <div class="login__item">
+                <label for="password">Пароль</label>
+                <input v-model="password" id="password" type="password" class="login__input login__password" placeholder="Пароль">
+            </div>
+            <input id="authorize-button" type="submit" class="login__submit" value="Увійти">
+        </form>
+    </div>
+</body>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="/js/login.js"></script>
+</html>

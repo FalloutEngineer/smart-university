@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html id="dashboard" lang="en">
+    <head>
+    <meta charset="utf-8">
+    <title>MTB KSU</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link href="vendor/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css">
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <!-- <link href="css/animate.css" rel="stylesheet"> -->
+    <link href="vendor/swiper/css/swiper.min.css" rel="stylesheet" type="text/css">
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <script src="node_modules/@fortawesome/fontawesome-free/js/all.js"></script>
+    <link rel="stylesheet" href="tippy.js@6.3.7/animations/scale.css">
+    <script src="@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="tippy.js@6.3.7/dist/tippy-bundle.umd.js"></script>
+    <script src="@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="tippy.js@6.3.7/dist/tippy-bundle.umd.min.js"></script>
+</head>
+
+<!-- <head>
+    <meta charset="utf-8">
+    <title>1 корпус 1 поверх</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link href="vendor/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css">
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <script href="script.js"></script>
+    <link href="vendor/swiper/css/swiper.min.css" rel="stylesheet" type="text/css">
+    <link href="css/style.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="tippy.js@6.3.7/animations/scale.css">
+    <script src="@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="tippy.js@6.3.7/dist/tippy-bundle.umd.js"></script>
+    <script src="@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="tippy.js@6.3.7/dist/tippy-bundle.umd.min.js"></script>
+</head> -->
+<body id="dash-body">
+    <header class="header navbar-fixed-top">
+    <nav class="navbar" role="navigation">
+        <div class="container">
+            
+            <div class="menu-container">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="toggle-icon"></span>
+                </button>
+              
+                <div class="logo">
+                    <a class="logo-wrap" href="index.html">
+                        <img class="logo-img logo-img-main" src="img/logo.png" alt=" Logo">
+                        <img class="logo-img logo-img-active" src="img/logo-dark.png" alt=" Logo">
+                    </a>
+                </div>                       
+            </div>
+   
+            <div class="collapse navbar-collapse nav-collapse">
+                <div class="menu-container">
+                    <ul class="navbar-nav navbar-nav-right">
+                        <li class="nav-item"><a class="nav-item-child nav-item-hover" href="index.html">Головна</a></li>
+                        <li class="nav-item"><a class="nav-item-child nav-item-hover" href="manage.html">Керування</a></li>
+                        <li class="nav-item"><a class="nav-item-child nav-item-hover" href="faculties.html">Факультети</a></li>
+                        <li class="nav-item"><a class="nav-item-child nav-item-hover" href="1building.html">1 корпус</a></li>
+                        <li class="nav-item"><a class="nav-item-child nav-item-hover" href="2building.html">2 корпус</a></li>
+                        <li class="nav-item"><a class="nav-item-child nav-item-hover" href="5building.html">5 корпус</a></li>
+                        <li class="nav-item"><a class="nav-item-child nav-item-hover" href="6building.html">6 корпус</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+        </div>
+    </nav>
+</header>
+
+    <div class="dash-container">
+        <div class="dash-body">
+            <div class="dash-sidebar">
+                <ul class="dash-sidebar__list">
+                    <li class="dash-sidebar__item">
+                        <a href="/manage" class="dash-sidebar__link">
+                            Створити
+                        </a>
+                    </li>
+                    <li class="dash-sidebar__item">
+                        <a href="/room-list" class="dash-sidebar__link">
+                            Список приміщень
+                        </a>
+                    </li>
+                    <li class="dash-sidebar__item">
+                        <a href="/floor-list" class="dash-sidebar__link">
+                            Список поверхів
+                        </a>
+                    </li>
+                    <li class="dash-sidebar__item">
+                        <a href="/faculty-list" class="dash-sidebar__link">
+                            Список факультетів
+                        </a>
+                    </li>
+                    <li class="dash-sidebar__item">
+                        <a href="/pulpit-list" class="dash-sidebar__link">
+                            Список кафедр
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="dash-board">
+                <div class="dash-board__container">
+                    <ul class="dash-board__list">
+                        <li v-cloak class="dash-board__item">
+                            <label for="type" class="dash-board__label">Що створити?</label>
+                            <select @change="changeType($event)" v-model="selectedType" class="dash-select" name="type" id="type">
+                                <option value="rooms">Приміщення</option>
+                                <option value="pulpits">Кафедра</option>
+                                <option value="faculties">Факультет</option>
+                                <option value="floors">Поверх</option>
+                            </select>
+                        </li>
+                        <li v-cloak id="faculty-item" class="dash-board__item" :class="{hidden: facultyHidden}">
+                            <label for="faculty" class="dash-board__label">До якого факультету належить?</label>
+                            <select @change="onValuesChange($event)" v-model="selectedFaculty" class="dash-select" name="faculty" id="faculties">
+                                <option v-bind:value="faculty.name" v-for="faculty in faculties">{{faculty.name}}</option>
+                            </select>
+                        </li>
+                        <li v-cloak id="floor-item" class="dash-board__item" :class="{hidden: floorHidden}">
+                            <label for="floor" class="dash-board__label">До якого поверху належить?</label>
+                            <select @change="onValuesChange($event)" v-model="selectedFloor" class="dash-select" name="floor" id="floors">
+                                <option v-bind:value="floor.number" v-for="floor in currentFloors">{{floor.number}}</option>
+                            </select>
+                        </li>
+                        <li v-cloak id="pulpit-item" class="dash-board__item"  :class="{hidden: pulpitHidden}">
+                            <label for="" class="dash-board__label">До якої кафедри належить?</label>
+                            <select @change="onValuesChange($event)" v-model="selectedPulpit" class="dash-select" name="pulpit" id="pulpits">
+                                <option v-bind:value="pulpit.name" v-for="pulpit in currentPulpits">{{pulpit.name}}</option>
+                            </select>
+                        </li>
+                        <li v-cloak :class="{hidden: nameHidden}" id="name-item" class="dash-board__item">
+                            <label for="" class="dash-board__label">Назва/Номер</label>
+                            <input id="name" v-model="name" class="dash-board__input" type="text" v-if="nameType === 'text'">
+                            <input id="number" v-model="number" class="dash-board__input" type="number" v-if="nameType === 'number'">
+                        </li>
+                    </ul>
+                    <button v-on:click="createItem()" id="create" class="dash-button">
+                        Створити
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="content container">
+        <div class="row">
+            <div class="col-xs-12 text-center">
+                <p class="margin-b-0"><a class="color-base fweight-700" href="index.htm"> Херсоньский Державний Університет</a>
+                    <br>© 2021<br> 
+                     Koziura A., <a href="About/Faculty/FPhysMathemInformatics/ChairInformatics/Staff/Vinnik.aspx.html">Vinnik M.</a>, <a href="http://www.kspu.edu/About/DepartmentAndServices/DSAICI/Employee/Poltorackiy.aspx">Poltorackiy M.</a>, <a href="About/UniversityAdministration/ABC.aspx.html">Spivakovskiy O.
+                </a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+    
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/manage.js"></script>
+</body>
+</html>
