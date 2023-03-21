@@ -91,7 +91,7 @@ app.get('/edit.html', authMiddleware, (req, res)=>{
 
 const start = async() => {
     try{
-        await mongoose.connect(process.env.DATABASE_URL, {useNewUrlParser: true});
+        // await mongoose.connect(process.env.DATABASE_URL, {useNewUrlParser: true});
         app.listen(PORT, ()=>console.log(`Server started on port ${PORT}`));
     }catch(e){
         console.log(e);
