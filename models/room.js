@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const ObjectId = require('mongodb').ObjectId;
 
 const roomSchema = new mongoose.Schema({
     number:{

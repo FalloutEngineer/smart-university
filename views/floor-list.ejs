@@ -20,73 +20,11 @@
 
 
 <body id="dash-body">
-    <header class="header navbar-fixed-top">
-    <nav class="navbar" role="navigation">
-        <div class="container">
-            
-            <div class="menu-container">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="toggle-icon"></span>
-                </button>
-              
-                <div class="logo">
-                    <a class="logo-wrap" href="index.html">
-                        <img class="logo-img logo-img-main" src="img/logo.png" alt=" Logo">
-                        <img class="logo-img logo-img-active" src="img/logo-dark.png" alt=" Logo">
-                    </a>
-                </div>                       
-            </div>
-   
-            <div class="collapse navbar-collapse nav-collapse">
-                <div class="menu-container">
-                    <ul class="navbar-nav navbar-nav-right">
-                        <li class="nav-item"><a class="nav-item-child nav-item-hover" href="index.html">Головна</a></li>
-                        <li class="nav-item"><a class="nav-item-child nav-item-hover" href="manage.html">Керування</a></li>
-                        <li class="nav-item"><a class="nav-item-child nav-item-hover" href="faculties.html">Факультети</a></li>
-                        <li class="nav-item"><a class="nav-item-child nav-item-hover" href="1building.html">1 корпус</a></li>
-                        <li class="nav-item"><a class="nav-item-child nav-item-hover" href="2building.html">2 корпус</a></li>
-                        <li class="nav-item"><a class="nav-item-child nav-item-hover" href="5building.html">5 корпус</a></li>
-                        <li class="nav-item"><a class="nav-item-child nav-item-hover" href="6building.html">6 корпус</a></li>
-                    </ul>
-                </div>
-            </div>
-            
-        </div>
-    </nav>
-</header>
+    <%- include('./partials/header') %>
 
     <div class="dash-container">
         <div class="dash-body">
-            <div class="dash-sidebar">
-                <ul class="dash-sidebar__list">
-                    <li class="dash-sidebar__item">
-                        <a href="/manage" class="dash-sidebar__link">
-                            Створити
-                        </a>
-                    </li>
-                    <li class="dash-sidebar__item">
-                        <a href="/room-list" class="dash-sidebar__link">
-                            Список приміщень
-                        </a>
-                    </li>
-                    <li class="dash-sidebar__item">
-                        <a href="/floor-list" class="dash-sidebar__link">
-                            Список поверхів
-                        </a>
-                    </li>
-                    <li class="dash-sidebar__item">
-                        <a href="/faculty-list" class="dash-sidebar__link">
-                            Список факультетів
-                        </a>
-                    </li>
-                    <li class="dash-sidebar__item">
-                        <a href="/pulpit-list" class="dash-sidebar__link">
-                            Список кафедр
-                        </a>
-                    </li>
-                </ul>
-            </div>
+            <%- include('./partials/dash-sidebar') %>
             <div class="dash-board">
                 <div class="dash-board__container">
                     <div class="dash-board__filter-container">
@@ -154,18 +92,7 @@
             </div>
         </div>
     </div>
-    <footer class="footer">
-    <div class="content container">
-        <div class="row">
-            <div class="col-xs-12 text-center">
-                <p class="margin-b-0"><a class="color-base fweight-700" href="index.htm"> Херсоньский Державний Університет</a>
-                    <br>© 2021<br> 
-                     Koziura A., <a href="About/Faculty/FPhysMathemInformatics/ChairInformatics/Staff/Vinnik.aspx.html">Vinnik M.</a>, <a href="http://www.kspu.edu/About/DepartmentAndServices/DSAICI/Employee/Poltorackiy.aspx">Poltorackiy M.</a>, <a href="About/UniversityAdministration/ABC.aspx.html">Spivakovskiy O.
-                </a></p>
-            </div>
-        </div>
-    </div>
-</footer>
+    <%- include('./partials/footer') %>
     
 
     <script src="js/create-type-selector.js"></script>

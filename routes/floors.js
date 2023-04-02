@@ -3,6 +3,7 @@ const router = express.Router();
 const Floor = require('../models/floor');
 const Room = require('../models/room');
 const Faculty = require('../models/faculty');
+const Building = require('../models/building');
 
 const authMiddleware = require('../middleware/authMiddleware');
 
@@ -24,6 +25,7 @@ router.get('/:number', authMiddleware, getFloor, (req, res) => {
 //create one
 router.post('/', authMiddleware, async (req, res) =>{
     let isFacultyExists = await Faculty.exists({name: req.body.faculty});
+    let isBuildingExists = await Building.exists({name: req.body.building});
     let roomsArray = [];
 
     req.body.rooms.forEach(room =>{
@@ -33,21 +35,29 @@ router.post('/', authMiddleware, async (req, res) =>{
     let isRoomsExists = roomsArray.every(i => i === true);
 
 
-    if(isFacultyExists && isRoomsExists){
+    if(isFacultyExists && isRoomsExists && isBuildingExists){
         const floor = new Floor({
             number: req.body.number,
             faculty: req.body.faculty,
-            rooms: req.body.rooms
+            rooms: req.body.rooms,
+            building: req.body.building,
+            temperatureSensorURL: req.body.temperatureSensorURL,
+            co2SensorURL: req.body.co2SensorURL,
+            floorColor: req.body.floorColor ?? '#ffffff'
         });
     
         try{
             const newFloor = await floor.save();
 
             const faculty = await Faculty.findOne({ name: req.body.faculty });
-            faculty.floors.push(req.body.name);
+            faculty.floors.push(req.body.number);
             const updatedFaculty = await faculty.save();
 
-            res.status(201).json({floor: newFloor, faculty: updatedFaculty});
+            const building = await Building.findOne({ name: req.body.building })
+            building.floors.push(req.body.number);
+            const updatedBuilding = await building.save();
+
+            res.status(201).json({floor: newFloor, faculty: updatedFaculty, building: updatedBuilding});
         } catch(err){
             res.status(400).json({message: err.message});
         }
@@ -60,15 +70,16 @@ router.post('/', authMiddleware, async (req, res) =>{
 //update one
 router.patch('/', authMiddleware, getFloor, async (req, res)=>{
     let isFacultyExists = await Faculty.exists({name: req.body.faculty});
+    let isBuildingExists = await Building.exists({name: req.body.building});
     let roomsArray = [];
 
     req.body.rooms.forEach(room =>{
-        roomsArray.push(Room.exists({number: room}));
+        roomsArray.push(Room.exists({number: room.number}));
     })
 
     let isRoomsExists = roomsArray.every(i => i === true);
 
-    if(isFacultyExists && isRoomsExists){
+    if(isFacultyExists && isRoomsExists  && isBuildingExists){
         if(req.body.number != null){
             req.floor.number = req.body.number
         }
@@ -77,6 +88,15 @@ router.patch('/', authMiddleware, getFloor, async (req, res)=>{
         }
         if(req.body.rooms != null){
             req.floor.rooms = req.body.rooms
+        }
+        if(req.body.temperatureSensorURL != null){
+            req.floor.temperatureSensorURL = req.body.temperatureSensorURL
+        }
+        if(req.body.co2SensorURL != null){
+            req.floor.co2SensorURL = req.body.co2SensorURL
+        }
+        if(req.body.floorColor != null){
+            req.floor.floorColor = req.body.floorColor
         }
         try{
             const updatedFloor = await res.floor.save
@@ -93,8 +113,12 @@ router.patch('/', authMiddleware, getFloor, async (req, res)=>{
 // delete one
 router.delete('/:number', authMiddleware, getFloor, async (req, res) =>{
     try{
-        console.log(res);
         await Faculty.updateOne({ name: res.floor.faculty }, {
+            $pullAll: {
+                floors: [res.floor.number],
+            },
+        });
+        await Building.updateOne({ name: res.floor.building }, {
             $pullAll: {
                 floors: [res.floor.number],
             },

@@ -3671,10 +3671,11 @@ h3, h4 {
 }
 
 .header .logo {
-  width: 100px;
-  height: 100px;
+  width: 100%;
+  height: 100%;
   float: left;
-  max-height: 95px;
+  max-height: 85px;
+  max-width: 85px;
   line-height: 65px;
 }
 
@@ -3683,15 +3684,29 @@ h3, h4 {
 }
 
 .header .logo-img {
+  height: 85px;
   width: 85px;
   height: auto;
-  max-width: 100%;
-  max-height: 100%;
   vertical-align: middle;
 }
 
+.header .logo-wrap{
+  position: relative;
+
+  top: 4px;
+}
+
+.header .logo-img-main {
+  position: absolute;
+  display: flex;
+  left: 0;
+  right: 0;
+  width: 85px;
+  height: 85px;
+}
+
 .header .logo-img-active {
-  display: none;
+  /* display: none; */
 }
 
 .header .nav-item, .header .nav-item-child {
@@ -3795,11 +3810,15 @@ h3, h4 {
   }
 
   .header .logo .logo-img-main {
-    display: none;
+    /* display: none; */
+    display: block;
+    opacity: 0;
   }
 
   .header .logo .logo-img-active {
-    display: inline-block;
+    /* display: inline-block; */
+    display: block;
+    opacity: 1;
   }
 
   .header .nav-item-child {
@@ -3864,11 +3883,13 @@ h3, h4 {
   }
 
   .page-on-scroll .header .logo-img-main {
-    display: none;
+    /* display: none; */
+    opacity: 0;
   }
 
   .page-on-scroll .header .logo-img-active {
-    display: inline-block;
+    /* display: inline-block; */
+    opacity: 1;
   }
 
   .page-on-scroll .header .nav-item-child {
@@ -5269,6 +5290,10 @@ div#chartdiv {
   color: white;
   background-color: #17bed2;
 }
+.dash-sidebar__link.active{
+  color: white;
+  background-color: #17bed2;
+}
 @media (max-width: 990px) {
   .dash-sidebar__link {
     width: -webkit-fit-content;
@@ -5321,7 +5346,7 @@ div#chartdiv {
           align-items: center;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
-          justify-content: space-between;
+          /* justify-content: space-between; */
   width: 100%;
   min-height: -webkit-fit-content;
   min-height: -moz-fit-content;
@@ -5618,4 +5643,257 @@ div#chartdiv {
 }
 [v-cloak] {
   display:none;
+}
+
+.page-list {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  padding: 0;
+  width: 100%;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  overflow: hidden;
+  overflow-y: auto;
+  list-style: none;
+  background-color: white;
+  border-radius: 4px;
+  margin-bottom: 0;
+}
+.page-list__container {
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+.page-list__link {
+  /* display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr; */
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  min-height: 100%;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+          padding: 5px 16px;
+}
+.page-list__link:hover {
+  background-color: #17bed2 !important;
+}
+.page-list__link:hover .page-list__property {
+  color: white;
+}
+.page-list__item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  min-height: 36px;
+
+  -webkit-transition: all 0.1s ease;
+  -o-transition: all 0.1s ease;
+  transition: all 0.1s ease;
+
+  border: 1px solid #ddd;
+}
+.page-list__property {
+  color: black;
+  -webkit-transition: all 0.1s ease;
+  -o-transition: all 0.1s ease;
+  transition: all 0.1s ease;
+  /* max-width: 20%; */
+  white-space: nowrap;
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+     text-overflow: ellipsis;
+
+  
+}
+
+.section_models{
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.section_models .container{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.section_models .page-list{
+  max-width: 460px;
+}
+
+.container:before, .container:after{
+  display: none !important;
+}
+
+.model-container{
+  display: flex;
+  max-width: 50%;
+  
+}
+
+.model-svg{
+  width: 100%;
+  height: auto;
+}
+
+.floor-header{
+  position: relative;
+}
+
+.floor-header__darker{
+  position: relative;
+  z-index: 1;
+}
+
+.floor-header__darker:after{
+  content: '';
+  width: 100%;
+  height: 100%;
+  display: flex !important;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.26);
+
+  z-index: -1;
+}
+
+.ui-60{
+  position: relative;
+  z-index: 1;
+}
+
+.ui-60 .container{
+  /* position: relative; */
+  z-index: 2;
+}
+
+.ui-60::after{
+  content: '';
+  display: flex;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.22);
+  z-index: -1;
+}
+
+.ui-60 .row{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  align-items: stretch;
+
+  padding-top: 50px;
+  padding-bottom: 50px;
+
+  gap: 15px;
+
+  position: relative;
+}
+
+.white-box{
+  position: relative;
+  display: flex;
+  background-color: white;
+  width: fit-content;
+  padding: 15px;
+
+  border-radius: 5px;
+  box-shadow: 2px 2px 0px 1px rgba(0, 0, 0, 0.08);
+
+  align-self: stretch;
+
+  display: flex;
+	flex-direction: column;
+	flex: 1 1 0;
+}
+
+.air-quality{
+}
+
+.co2{
+  gap: 25px;
+}
+
+.co2__values{
+  display: flex;
+  flex-direction: row;
+  gap: 25px;
+}
+
+.co2__quality-item{
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+}
+
+.co2__quality-values{
+  display: flex;
+  flex-direction: row;
+  gap: 25px;
+}
+
+.co2__quality-value{
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+}
+
+.temperature {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  gap: 20px;
+}
+.temperature__heading{
+  margin-bottom: 5px;
+}
+.temperature__value-wrapper{
+  display: flex;
+  justify-content: center;
+
+  gap: 5px;
+}
+.temperature__value{
+  color: black;
+}
+.temperature__symbol-wrapper{
+  position: relative;
+}
+.temperature__symbol-upper{
+  color: black;
+  font-size: 9px;
+  top: -4px;
+  left: -4px;
+  position: absolute;
+}
+.temperature__symbol{
+  color: black;
+}
+.temperature__container{
+
+}
+.temperature-value {
+}
+.humidity-value {
 }

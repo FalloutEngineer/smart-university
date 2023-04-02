@@ -2,7 +2,7 @@ const getData = (building_id, floor_id) => {
     let result;
     $.ajax({
         dataType: "json",
-        url: './js/test.json',
+        url: '/js/test.json',
         async: false,
         success: (data) => {
             result = data;

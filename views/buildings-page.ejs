@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- <head>
+        <meta charset="utf-8">
+        <title>Факультети</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta content="width=device-width, initial-scale=1" name="viewport">
+        <link href="vendor/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css">
+        <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <link href="css/animate.css" rel="stylesheet">
+        <link href="vendor/swiper/css/swiper.min.css" rel="stylesheet" type="text/css">
+        <link href="css/style.css" rel="stylesheet" type="text/css">
+        <link href="css/info.css" rel="stylesheet">
+        <script src="node_modules/@fortawesome/fontawesome-free/js/all.js"></script>
+
+</head> -->
+<head>
+    <meta charset="utf-8">
+    <title>MTB KSU</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link href="vendor/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css">
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <!-- <link href="css/animate.css" rel="stylesheet"> -->
+    <link href="vendor/swiper/css/swiper.min.css" rel="stylesheet" type="text/css">
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <script src="node_modules/@fortawesome/fontawesome-free/js/all.js"></script>
+    <link rel="stylesheet" href="tippy.js@6.3.7/animations/scale.css">
+    <script src="@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="tippy.js@6.3.7/dist/tippy-bundle.umd.js"></script>
+    <script src="@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="tippy.js@6.3.7/dist/tippy-bundle.umd.min.js"></script>
+</head>
+    <body id="buildings-page">
+        <%- include('./partials/header') %>
+
+        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+            
+            <div class="carousel-inner" role="listbox">
+                <div class="item active">
+                    <img class="img-responsive" src="img/4.jpg" alt="Slider Image">
+                    <div class="container">
+                        <div class="carousel-centered">
+                            <div class="margin-b-40">
+                                <h1 class="carousel-title" style="margin-top: 25px;">Будівлі</h1>
+                                <p style="color: white; padding-right: 10px; margin-right: auto; margin-left: auto;">На даній сторінкі розміщений список з посиланнями на існуючі будівлі університету</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+<div class="page-list__container" style="	background: rgb(48, 46, 51);">
+<style>
+
+button {
+  font-size: 2em;
+  background: #3498db;
+  color: #fff;
+  border: 0.25rem solid #3498db;
+  padding: 0.85em 0.75em;
+  margin: 1rem;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+button:hover {
+  color: #1a1a1a;
+}
+button::after {
+  content: "";
+  background: #f3f3f3;
+  position: absolute;
+  z-index: -1;
+  padding: 0.85em 0.75em;
+  display: block;
+}
+button[class^="grow"]::after {
+  transition: all 0.3s ease;
+}
+button[class^="grow"]:hover::after {
+  transition: all 0.3s ease-out;
+}
+button.grow_skew_forward::after {
+  left: -20%;
+  right: -20%;
+  top: 0;
+  bottom: 0;
+  transform: skewX(-45deg) scale(0, 1);
+}
+button.grow_skew_forward {
+    font-size: 13px;
+    font-weight: 600;
+    padding: 10px 20px;
+}
+button.grow_skew_forward:hover::after {
+  transform: skewX(-45deg) scale(1, 1);
+}
+</style>
+    <div class="container">
+        <ul class="page-list">
+            <% for (var i = 0; i < buildings.length; i++) { %>
+                <li class="page-list__item">
+                    <a href="/building-page/<%= buildings[i].name %>" class="page-list__link">
+                        <span class="page-list__property page-list__property_name">
+                            <%= buildings[i].name %>
+                        </span>
+                    </a>
+                </li>
+            <% } %>
+        </ul>
+    </div> 
+</div> 
+        <%- include('./partials/footer') %>
+
+        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+        <script src="/js/buildings-page.js"></script>
+
+        <a href="javascript:void(0);" class="js-back-to-top back-to-top">Top</a>
+        <script src="vendor/jquery.min.js" type="text/javascript"></script>
+        <script src="vendor/jquery-migrate.min.js" type="text/javascript"></script>
+        <script src="vendor/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="vendor/jquery.easing.js" type="text/javascript"></script>
+        <script src="vendor/jquery.back-to-top.js" type="text/javascript"></script>
+        <script src="vendor/jquery.smooth-scroll.js" type="text/javascript"></script>
+        <script src="vendor/jquery.wow.min.js" type="text/javascript"></script>
+        <script src="vendor/swiper/js/swiper.jquery.min.js" type="text/javascript"></script>
+        <script src="vendor/masonry/jquery.masonry.pkgd.min.js" type="text/javascript"></script>
+        <script src="vendor/masonry/imagesloaded.pkgd.min.js" type="text/javascript"></script>
+        <script src="js/layout.min.js" type="text/javascript"></script>
+        <script src="js/components/wow.min.js" type="text/javascript"></script>
+        <script src="js/components/swiper.min.js" type="text/javascript"></script>
+        <script src="js/components/masonry.min.js" type="text/javascript"></script>
+    </body>
+</html>

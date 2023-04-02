@@ -7,7 +7,6 @@
     <meta content="width=device-width, initial-scale=1" name="viewport">
     <link href="vendor/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css">
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <!-- <link href="css/animate.css" rel="stylesheet"> -->
     <link href="vendor/swiper/css/swiper.min.css" rel="stylesheet" type="text/css">
     <link href="css/style.css" rel="stylesheet" type="text/css">
     <script src="node_modules/@fortawesome/fontawesome-free/js/all.js"></script>
@@ -17,92 +16,12 @@
     <script src="@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="tippy.js@6.3.7/dist/tippy-bundle.umd.min.js"></script>
 </head>
-
-<!-- <head>
-    <meta charset="utf-8">
-    <title>1 корпус 1 поверх</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta content="width=device-width, initial-scale=1" name="viewport">
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <link href="vendor/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css">
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <script href="script.js"></script>
-    <link href="vendor/swiper/css/swiper.min.css" rel="stylesheet" type="text/css">
-    <link href="css/style.min.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="tippy.js@6.3.7/animations/scale.css">
-    <script src="@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="tippy.js@6.3.7/dist/tippy-bundle.umd.js"></script>
-    <script src="@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="tippy.js@6.3.7/dist/tippy-bundle.umd.min.js"></script>
-</head> -->
 <body id="dash-body">
-    <header class="header navbar-fixed-top">
-    <nav class="navbar" role="navigation">
-        <div class="container">
-            
-            <div class="menu-container">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="toggle-icon"></span>
-                </button>
-              
-                <div class="logo">
-                    <a class="logo-wrap" href="index.html">
-                        <img class="logo-img logo-img-main" src="img/logo.png" alt=" Logo">
-                        <img class="logo-img logo-img-active" src="img/logo-dark.png" alt=" Logo">
-                    </a>
-                </div>                       
-            </div>
-   
-            <div class="collapse navbar-collapse nav-collapse">
-                <div class="menu-container">
-                    <ul class="navbar-nav navbar-nav-right">
-                        <li class="nav-item"><a class="nav-item-child nav-item-hover" href="index.html">Головна</a></li>
-                        <li class="nav-item"><a class="nav-item-child nav-item-hover" href="manage.html">Керування</a></li>
-                        <li class="nav-item"><a class="nav-item-child nav-item-hover" href="faculties.html">Факультети</a></li>
-                        <li class="nav-item"><a class="nav-item-child nav-item-hover" href="1building.html">1 корпус</a></li>
-                        <li class="nav-item"><a class="nav-item-child nav-item-hover" href="2building.html">2 корпус</a></li>
-                        <li class="nav-item"><a class="nav-item-child nav-item-hover" href="5building.html">5 корпус</a></li>
-                        <li class="nav-item"><a class="nav-item-child nav-item-hover" href="6building.html">6 корпус</a></li>
-                    </ul>
-                </div>
-            </div>
-            
-        </div>
-    </nav>
-</header>
+    <%- include('./partials/header') %>
 
     <div class="dash-container">
         <div class="dash-body">
-            <div class="dash-sidebar">
-                <ul class="dash-sidebar__list">
-                    <li class="dash-sidebar__item">
-                        <a href="/manage" class="dash-sidebar__link">
-                            Створити
-                        </a>
-                    </li>
-                    <li class="dash-sidebar__item">
-                        <a href="/room-list" class="dash-sidebar__link">
-                            Список приміщень
-                        </a>
-                    </li>
-                    <li class="dash-sidebar__item">
-                        <a href="/floor-list" class="dash-sidebar__link">
-                            Список поверхів
-                        </a>
-                    </li>
-                    <li class="dash-sidebar__item">
-                        <a href="/faculty-list" class="dash-sidebar__link">
-                            Список факультетів
-                        </a>
-                    </li>
-                    <li class="dash-sidebar__item">
-                        <a href="/pulpit-list" class="dash-sidebar__link">
-                            Список кафедр
-                        </a>
-                    </li>
-                </ul>
-            </div>
+            <%- include('./partials/dash-sidebar') %>
             <div class="dash-board">
                 <div class="dash-board__container">
                     <ul class="dash-board__list">
@@ -113,6 +32,13 @@
                                 <option value="pulpits">Кафедра</option>
                                 <option value="faculties">Факультет</option>
                                 <option value="floors">Поверх</option>
+                                <option value="buildings">Будівля</option>
+                            </select>
+                        </li>
+                        <li v-cloak id="building-item" class="dash-board__item"  :class="{hidden: buildingHidden}">
+                            <label for="" class="dash-board__label">До якої будівлі належить?</label>
+                            <select v-model="selectedBuilding" class="dash-select" name="building" id="buildings">
+                                <option v-bind:value="building.name" v-for="building in buildings">{{building.name}}</option>
                             </select>
                         </li>
                         <li v-cloak id="faculty-item" class="dash-board__item" :class="{hidden: facultyHidden}">
@@ -138,6 +64,53 @@
                             <input id="name" v-model="name" class="dash-board__input" type="text" v-if="nameType === 'text'">
                             <input id="number" v-model="number" class="dash-board__input" type="number" v-if="nameType === 'number'">
                         </li>
+                        <li v-cloak :class="{hidden: capacityHidden}" id="capacity-item" class="dash-board__item">
+                            <label for="" class="dash-board__label">Кількість місць</label>
+                            <input id="capacity" v-model="capacity" class="dash-board__input" type="number">
+                        </li>
+                        <li v-cloak id="roomType-item" class="dash-board__item"  :class="{hidden: typeHidden}">
+                            <label for="" class="dash-board__label">Тип приміщення</label>
+                            <select v-model="selectedRoomType" class="dash-select" name="roomType" id="roomTypes">
+                                <option v-bind:value="roomType" v-for="roomType in roomTypes">{{roomType}}</option>
+                            </select>
+                        </li>
+                        <li v-cloak :class="{hidden: descriptionHidden}" id="description-item" class="dash-board__item">
+                            <label for="" class="dash-board__label">Опис</label>
+                            <textarea name="description" name="description" v-model="description" class="dash-board__textarea" id="description" cols="30" rows="10" placeholder="Введіть опис"></textarea>
+                        </li>
+                        <li v-cloak :class="{hidden: assistantHidden}" id="assistant-item" class="dash-board__item">
+                            <label for="" class="dash-board__label">Асистент</label>
+                            <input id="assistant" v-model="assistant" class="dash-board__input" type="text">
+                        </li>
+                        <li v-cloak :class="{hidden: imagesHidden}" id="images-item" class="dash-board__item">
+                            <label for="" class="dash-board__label">Зображення</label>
+                            <input id="images" class="dash-board__input" enctype="multipart/form-data" multiple v-on:change="handleFileUpload" type="file" accept="image/*">
+                        </li>
+                        <li v-cloak :class="{hidden: svgHidden}" id="svg-item" class="dash-board__item">
+                            <label for="" class="dash-board__label">SVG</label>
+                            <input id="svg" class="dash-board__input" enctype="multipart/form-data" v-on:change="handleSvgUpload" type="file" accept=".svg">
+                        </li>
+                        <li v-cloak :class="{hidden: co2Hidden}" id="co2-item" class="dash-board__item">
+                            <label for="co2" class="dash-board__label">Посилання на сенсор CO2</label>
+                            <input id="co2" v-model="co2" class="dash-board__input" type="url">
+                        </li>
+                        <li v-cloak :class="{hidden: temperatureHidden}" id="svg-item" class="dash-board__item">
+                            <label for="" class="dash-board__label">Посилання на сенсор температури</label>
+                            <input id="temperature" v-model="temperature" class="dash-board__input" type="url">
+                        </li>
+                        <li v-cloak :class="{hidden: colorHidden}" id="color-item" class="dash-board__item">
+                            <label for="floorColor" class="dash-board__label">Колір</label>
+                            <input type="color" id="floorColor" name="floorColor" v-model="floorColor" value="#ffffff">
+                        </li>
+
+                        <!-- <li v-cloak :class="{hidden: backgroundHidden}" id="background-item" class="dash-board__item">
+                            <label for="color" class="dash-board__label">Фон</label>
+                            <input id="buildingBackground" class="dash-board__input" enctype="multipart/form-data" multiple v-on:change="handleBackgroundUpload" type="file" accept="image/*">
+                        </li> -->
+                        <li v-cloak :class="{hidden: addressHidden}" id="address-item" class="dash-board__item">
+                            <label for="address" class="dash-board__label">Адреса</label>
+                            <input type="text" id="address" name="address" v-model="address">
+                        </li>
                     </ul>
                     <button v-on:click="createItem()" id="create" class="dash-button">
                         Створити
@@ -146,19 +119,7 @@
             </div>
         </div>
     </div>
-    <footer class="footer">
-    <div class="content container">
-        <div class="row">
-            <div class="col-xs-12 text-center">
-                <p class="margin-b-0"><a class="color-base fweight-700" href="index.htm"> Херсоньский Державний Університет</a>
-                    <br>© 2021<br> 
-                     Koziura A., <a href="About/Faculty/FPhysMathemInformatics/ChairInformatics/Staff/Vinnik.aspx.html">Vinnik M.</a>, <a href="http://www.kspu.edu/About/DepartmentAndServices/DSAICI/Employee/Poltorackiy.aspx">Poltorackiy M.</a>, <a href="About/UniversityAdministration/ABC.aspx.html">Spivakovskiy O.
-                </a></p>
-            </div>
-        </div>
-    </div>
-</footer>
-    
+    <%- include('./partials/footer') %>
 
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="js/auth.js"></script>

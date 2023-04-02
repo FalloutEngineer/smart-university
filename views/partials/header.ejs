@@ -1,0 +1,32 @@
+<header class="header navbar-fixed-top">
+    <nav class="navbar" role="navigation">
+        <div class="container">
+            
+            <div class="menu-container">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="toggle-icon"></span>
+                </button>
+              
+                <div class="logo">
+                    <a class="logo-wrap" href="/">
+                        <img class="logo-img logo-img-main" src="/img/logo.png" alt=" Logo">
+                        <img class="logo-img logo-img-active" src="/img/logo-dark.png" alt=" Logo">
+                    </a>
+                </div>                       
+            </div>
+   
+            <div class="collapse navbar-collapse nav-collapse">
+                <div class="menu-container">
+                    <ul class="navbar-nav navbar-nav-right">
+                        <li class="nav-item"><a :class="{active: '<%- currentPage %>' == 'main'}" class="nav-item-child nav-item-hover" href="/">Головна</a></li>
+                        <li class="nav-item"><a :class="{active: '<%- currentPage %>' == 'manage'}" class="nav-item-child nav-item-hover" href="/manage">Керування</a></li>
+                        <li class="nav-item"><a :class="{active: '<%- currentPage %>' == 'faculties'}" class="nav-item-child nav-item-hover" href="/faculties-page">Факультети</a></li>
+                        <li class="nav-item"><a :class="{active: '<%- currentPage %>' == 'buildings-page'}" class="nav-item-child nav-item-hover" href="/buildings-page">Будівлі</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+        </div>
+    </nav>
+</header>

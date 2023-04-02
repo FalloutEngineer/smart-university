@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <title>MTB KSU</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link href="/vendor/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css">
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <!-- <link href="css/animate.css" rel="stylesheet"> -->
+    <link href="/vendor/swiper/css/swiper.min.css" rel="stylesheet" type="text/css">
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <script src="/node_modules/@fortawesome/fontawesome-free/js/all.js"></script>
+    <link rel="stylesheet" href="/tippy.js@6.3.7/animations/scale.css">
+    <script src="/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="/tippy.js@6.3.7/dist/tippy-bundle.umd.js"></script>
+    <script src="/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="/tippy.js@6.3.7/dist/tippy-bundle.umd.min.js"></script>
+</head>
+    <body>
+        <%- include('./partials/header') %>
+
+        
+
+        
+        <div class="floor-header" style="background: linear-gradient(to right,rgba(0,0,0,0.4), rgba(255, 255, 255, 0.1)), <%if(floor.floorColor) { %><%-floor.floorColor%><% } else { %>#000<%}%>">
+            <div class="floor-header__darker">
+                <div class="parallax-content container">
+                    <h2 style="color:whitesmoke; z-index: 1;"><%= room.type %> <%= room.number %></h2>
+                    
+                    <% if(room.faculty){ %>
+                        <h3 style="color:whitesmoke; z-index: 1;"><%= room.floor %> Поверх - <%= room.faculty.toUpperCase() %></h3>
+                    <% } else { %>
+                        <h3 style="color:whitesmoke; z-index: 1;"><%= room.floor %> Поверх</h3>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+              
+
+<div class="ui-60">
+    <div class="container">
+        <div class="row">
+            <%if(room.photo_links != '') { %>
+                <div class="images-block">
+                    <ul class="images-block__list">
+                        <% for (var i = 0; i < room.photo_links.length;  i++ ) { %>
+                            <li class="images-block__item">
+                                <img src="/images/<%=room.photo_links[i] %>" alt="" style="width: 500px; height: auto;" class="images-block__image">
+                            </li>
+                        <% } %>
+                    </ul>
+                </div>
+            <% } %>
+
+            <ul class="main-info">
+                <li class="info__item">
+                    <h4 class="info__item-name">
+                        Номер:
+                    </h4>
+                    <span style="color: black" class="info__item-value">
+                        <%= room.number %>
+                    </span>
+                </li>
+                <li class="info__item">
+                    <h4 class="info__item-name">
+                        Поверх:
+                    </h4>
+                    <span style="color: black" class="info__item-value">
+                        <%= room.floor %>
+                    </span>
+                </li>
+                <li class="info__item">
+                    <h4 class="info__item-name">
+                        Факультет:
+                    </h4>
+                    <span style="color: black" class="info__item-value">
+                        <%= room.faculty.toUpperCase() %>
+                    </span>
+                </li>
+                <% if(room.pulpits != '') { %>
+                    <li class="info__item">
+                        <h4 class="info__item-name">
+                            Кафедра:
+                        </h4>
+                        <span style="color: black" class="info__item-value">
+                            <%- room.pulpits %>
+                        </span>
+                    </li>
+                <% } %>
+            </ul>
+        </div>
+        <% if(room.description != '') { %>
+            <div class="row">
+                <div class="room__description-container">
+                    <h3 class="room__description-heading">Опис:</h3>
+                    <span style="color: black" class="room__description">
+                        <%= room.description %>
+                    </span>
+                </div>
+            </div>
+        <% } %>
+        <div class="row">
+            <ul class="secondary-info">
+                <li class="info__item">
+                    <h4 class="info__item-name">
+                        Кількість місць:
+                    </h4>
+                    <span style="color: black" class="info__item-value">
+                        <%=room.capacity%>
+                    </span>
+                </li>
+                <li class="info__item">
+                    <h4 class="info__item-name">
+                        Тип:
+                    </h4>
+                    <span style="color: black" class="info__item-value">
+                        <%=room.type%>
+                    </span>
+                </li>
+                <li class="info__item">
+                    <h4 class="info__item-name">
+                        Асистент:
+                    </h4>
+                    <span style="color: black" class="info__item-value">
+                        <%=room.assistant%>
+                    </span>
+                </li>
+                <li class="info__item">
+                    <h4 class="info__item-name">
+                        Температура:
+                    </h4>
+                    <span style="color: black" class="info__item-value">
+                        0
+                    </span>
+                </li>
+                <li class="info__item">
+                    <h4 class="info__item-name">
+                        Со2:
+                    </h4>
+                    <span style="color: black" class="info__item-value">
+                        1111
+                    </span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+        <%- include('./partials/footer') %>
+
+        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+        <script src="/js/page.js"></script>
+
+        <a href="javascript:void(0);" class="js-back-to-top back-to-top">Top</a>
+        <script src="/vendor/jquery.min.js" type="text/javascript"></script>
+        <script src="/vendor/jquery-migrate.min.js" type="text/javascript"></script>
+        <script src="/vendor/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="/vendor/jquery.easing.js" type="text/javascript"></script>
+        <script src="/vendor/jquery.back-to-top.js" type="text/javascript"></script>
+        <script src="/vendor/jquery.smooth-scroll.js" type="text/javascript"></script>
+        <script src="/vendor/jquery.wow.min.js" type="text/javascript"></script>
+        <script src="/vendor/jquery.parallax.min.js" type="text/javascript"></script>
+        <script src="/vendor/swiper/js/swiper.jquery.min.js" type="text/javascript"></script>
+        <script src="/js/layout.min.js" type="text/javascript"></script>
+        <script src="/js/components/wow.min.js" type="text/javascript"></script>
+        <script src="/js/components/swiper.min.js" type="text/javascript"></script>
+
+        <script src="/js/getDataFromJson.js"> </script>
+        <script src="/js/register_tippy.js">  </script> 
+		<script src="/js/temperature.js"></script>
+        <script> registerTippiesForBuildingAndFloor(1, 1); </script>
+        
+        </body>
+        </html>

@@ -4,8 +4,24 @@ const Room = require('../models/room');
 const Floor = require('../models/floor');
 const Pulpit = require('../models/pulpit');
 const Faculty = require('../models/faculty');
+const multer = require('multer');
+const path = require('path');
+const fs = require('fs');
 
 const authMiddleware = require('../middleware/authMiddleware');
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) =>{
+        cb(null, './static/images');
+    },
+    filename: (req,file,cb)=>{
+        cb(null, Date.now() + path.extname(file.originalname));
+    }
+  });
+  
+const upload = multer({
+  storage: storage
+});
 
 //get all
 router.get('/', authMiddleware, async (req, res) => {
@@ -23,7 +39,7 @@ router.get('/:number', authMiddleware, getRoom, (req, res) => {
 });
 
 //create one
-router.post('/', authMiddleware, async (req, res) =>{
+router.post('/', authMiddleware, upload.any('images'), async (req, res) =>{
     let isFacultyExists = await Faculty.exists({name: req.body.faculty});
     let isFloorValid = await Floor.exists({number: req.body.floor, faculty: req.body.faculty});
 
@@ -35,6 +51,7 @@ router.post('/', authMiddleware, async (req, res) =>{
     
     let isPulpitsValid = pulpitsArray.every(i => i === true);
 
+    let images = req.files.map(file => file.filename);
 
     if(isFacultyExists && isFloorValid && isPulpitsValid){
         const room = new Room({
@@ -43,15 +60,15 @@ router.post('/', authMiddleware, async (req, res) =>{
             faculty: req.body.faculty,
             capacity: req.body.capacity,
             type: req.body.type,
-            photo_links: req.body.photo_links,
+            photo_links: images[0] != '' ? images : [],
             description: req.body.description,
             assistant: req.body.assistant,
             model: req.body.model,
-            pulpits: req.body.pulpits,
-            co2: req.body.co2,
-            temperature: req.body.temperature,
-            co2_history: req.body.co2_history,
-            temperature_history: req.body.temperature_history,
+            pulpits: req.body.pulpits[0] != '' ? req.body.pulpits : [],
+            co2: req.body.co2[0] != '' ? h : [],
+            temperature: req.body.temperature[0] != '' ? req.body.temperature : [],
+            co2_history: req.body.co2_history[0] != '' ? req.body.co2_history : [],
+            temperature_history: req.body.temperature_history[0] != '' ? req.body.temperature_history : [],
         });
     
         try{
@@ -78,63 +95,82 @@ router.post('/', authMiddleware, async (req, res) =>{
 });
 
 //update one
-router.patch('/', authMiddleware, getRoom, async (req, res)=>{
-    let isFacultyExists = await Faculty.exists({name: req.body.faculty});
-    let isFloorExists = await Floor.exists({number: req.body.floor});
+router.patch('/:number', authMiddleware, upload.any('images'), getRoom, async (req, res)=>{
+    let isFacultyExists = true;
+    let isFloorExists = true;
+
+    if(req.body.floor != [] && req.body.floor){
+        isFloorExists = await Floor.exists({number: req.body.floor});
+    }
+    if(req.body.faculty != [] && req.body.faculty){
+        isFacultyExists = await Faculty.exists({name: req.body.faculty});
+    }
 
     let pulpitsArray = [];
 
-    for(const pulpit of req.body.pulpits){
-        pulpitsArray.push(null != await Pulpit.exists({name: pulpit}));
-    }
+    let isPulpitssExists = true;
 
-    let isPulpitssExists = pulpitsArray.every(i => i === true);
+    const images = req.files.map(file => file.filename);
+
+    res.room.photo_links.forEach(link =>{
+        const address = path.resolve('./static/images/' + link);
+        if(fs.existsSync(address)){
+            fs.unlinkSync(address);
+        }
+    });
+
+    if(req.body.pulpits){
+        for(const pulpit of req.body.pulpits){
+            pulpitsArray.push(null != await Pulpit.exists({name: pulpit}));
+        }
+        isPulpitssExists = pulpitsArray.every(i => i === true);
+    }
 
     if(isFacultyExists && isFloorExists && isPulpitssExists){
         if(req.body.number != null){
-            req.room.number = req.body.number
+            res.room.number = req.body.number
         }
         if(req.body.floor != null){
-            req.room.floor = req.body.floor
+            res.room.floor = req.body.floor
         }
         if(req.body.faculty != null){
-            req.room.faculty = req.body.faculty
+            res.room.faculty = req.body.faculty
         }
         if(req.body.capacity != null){
-            req.room.capacity = req.body.capacity
+            res.room.capacity = req.body.capacity
         }
         if(req.body.type != null){
-            req.room.type = req.body.type
+            res.room.type = req.body.type
         }
         if(req.body.photo_links != null){
-            req.room.photo_links = req.body.photo_links
+            res.room.photo_links = images
         }
         if(req.body.description != null){
-            req.room.description = req.body.description
+            res.room.description = req.body.description
         }
         if(req.body.assistant != null){
-            req.room.assistant = req.body.assistant
+            res.room.assistant = req.body.assistant
         }
         if(req.body.model != null){
-            req.room.model = req.body.model
+            res.room.model = req.body.model
         }
         if(req.body.pulpits != null){
-            req.room.pulpits = req.body.pulpits
+            res.room.pulpits = req.body.pulpits
         }
         if(req.body.co2 != null){
-            req.room.co2 = req.body.co2
+            res.room.co2 = req.body.co2
         }
         if(req.body.temperature != null){
-            req.room.temperature = req.body.temperature
+            res.room.temperature = req.body.temperature
         }
         if(req.body.co2_history != null){
-            req.room.co2_history = req.body.co2_history
+            res.room.co2_history = req.body.co2_history
         }
         if(req.body.temperature_history != null){
-            req.room.temperature_history = req.body.temperature_history
+            res.room.temperature_history = req.body.temperature_history
         }
         try{
-            const updatedRoom = await res.room.save
+            const updatedRoom = await res.room.save()
             res.json(updatedRoom);
         } catch (err){
             res.status(400).json({message: err.message});
@@ -158,6 +194,14 @@ router.delete('/:number', authMiddleware, getRoom, async (req, res) =>{
                 rooms: [res.room.number],
             },
         });
+
+        res.room.photo_links.forEach(link =>{
+            const address = path.resolve('./static/images/' + link);
+            if(fs.existsSync(address)){
+                fs.unlinkSync(address);
+            }
+        });
+
         await res.room.remove();
         res.json({message: "Deleted Room"});
     } catch(err){

@@ -22,8 +22,8 @@ router.get('/:id', authMiddleware, getFaculty, (req, res) => {
 router.post('/', authMiddleware, async (req, res) =>{
     const faculty = new Faculty({
         name: req.body.name,
-        floors: req.body.floors,
-        pulpits: req.body.pulpits
+        floors: req.body.floors || [],
+        pulpits: req.body.pulpits || []
     });
 
     try{
@@ -54,10 +54,10 @@ router.patch('/', authMiddleware, getFaculty, async (req, res)=>{
 });
 
 // delete one
-router.delete('/:id', authMiddleware, getFaculty, async (req, res) =>{
+router.delete('/:name', authMiddleware, getFaculty, async (req, res) =>{
     try{
         await res.faculty.remove();
-        res.json({message: "Deleted Faculty"});
+        res.json({message: "Faculty successfull deleted"});
     } catch(err){
         res.status(500).json({message: err.message});
     }
@@ -65,7 +65,7 @@ router.delete('/:id', authMiddleware, getFaculty, async (req, res) =>{
 
 async function getFaculty(req, res, next){
     try{
-        faculty = await Faculty.findById(req.params.id);
+        faculty = await Faculty.findOne({name: req.params.name});
         if(faculty == null){
             return res.status(404).json({message: "Can't find faculty"});
         }

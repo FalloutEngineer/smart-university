@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 const pulpitSchema = new mongoose.Schema({
     name:{
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     faculty:{
         type: String,

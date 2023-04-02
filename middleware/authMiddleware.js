@@ -9,6 +9,7 @@ module.exports = function(req, res, next){
         const token = req.cookies.token;
         if(!token){
             const tokenHeaders = req.headers.authorization.split(' ')[1];
+            console.log(req.headers.authorization);
             if(!tokenHeaders){
                 res.redirect('/login');
             }else{

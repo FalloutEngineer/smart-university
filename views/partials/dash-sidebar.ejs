@@ -1,0 +1,34 @@
+<div class="dash-sidebar">
+    <ul class="dash-sidebar__list">
+        <li class="dash-sidebar__item">
+            <a :class="{active: '<%- currentBoard %>' == 'manage'}" href="/manage" class="dash-sidebar__link">
+                Створити
+            </a>
+        </li>
+        <li class="dash-sidebar__item">
+            <a :class="{active: '<%- currentBoard %>' == 'room-list'}" href="/room-list" class="dash-sidebar__link">
+                Список приміщень
+            </a>
+        </li>
+        <li class="dash-sidebar__item">
+            <a :class="{active: '<%- currentBoard %>' == 'floor-list'}" href="/floor-list" class="dash-sidebar__link">
+                Список поверхів
+            </a>
+        </li>
+        <li class="dash-sidebar__item">
+            <a :class="{active: '<%- currentBoard %>' == 'faculty-list'}" href="/faculty-list" class="dash-sidebar__link">
+                Список факультетів
+            </a>
+        </li>
+        <li class="dash-sidebar__item">
+            <a :class="{active: '<%- currentBoard %>' == 'pulpit-list'}" href="/pulpit-list" class="dash-sidebar__link">
+                Список кафедр
+            </a>
+        </li>
+        <li class="dash-sidebar__item">
+            <a :class="{active: '<%- currentBoard %>' == 'building-list'}" href="/building-list" class="dash-sidebar__link">
+                Список будівель
+            </a>
+        </li>
+    </ul>
+</div>

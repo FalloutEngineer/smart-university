@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+    <meta charset="utf-8">
+    <title>MTB KSU</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link href="/vendor/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css">
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <!-- <link href="css/animate.css" rel="stylesheet"> -->
+    <link href="/vendor/swiper/css/swiper.min.css" rel="stylesheet" type="text/css">
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <script src="/node_modules/@fortawesome/fontawesome-free/js/all.js"></script>
+    <link rel="stylesheet" href="/tippy.js@6.3.7/animations/scale.css">
+    <script src="/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="/tippy.js@6.3.7/dist/tippy-bundle.umd.js"></script>
+    <script src="/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="/tippy.js@6.3.7/dist/tippy-bundle.umd.min.js"></script>
+</head>
+    <body> 
+		<%- include('./partials/header') %>
+
+        <div class="parallax-window" data-parallax="scroll" data-image-src="/img/1.jpg">
+            <div class="parallax-content container">
+                <h1 class="carousel-title" style="text-align: right;"><%- building.name %></h1>
+                <% if(building.address){ %>
+                    <p style="text-align: right; color: white;"><%- building.address %> </p>
+                 <% } %>
+                
+            </div>
+        </div>
+
+	<section class="section section_models" id="models_1">
+        
+        <div class="container">
+            
+                <%if (building.svg) { %>
+                    <div class="model-container">
+                        <object class="model-svg" data="/svg/<%= building.svg %>" type="image/svg+xml">
+                            
+                        </object>
+                    </div>
+                <% } %>
+                <ul class="page-list">
+                    <% for (var i = 0; i < floors.length; i++) { %>
+                        <li class="page-list__item">
+                            <a href="/floor-page/<%= floors[i].number %>" class="page-list__link">
+                                <span class="page-list__property page-list__property_name">
+                                    <%= floors[i].number %> Поверх <% if(floors[i].faculty){ %>- <%= floors[i].faculty %> <% } %>
+                                </span>
+                            </a>
+                        </li>
+                    <% } %>
+                </ul>
+   		</div>
+    </section>
+    <script>
+        tippy('#flr1', {
+          content: '1 поверх - Факультет фізичного виховання та спорту',
+          placement: 'right-start',
+         });
+        tippy('#flr2', {
+          content: '2 поверх - Педагогічний факультет',
+          placement: 'right-start'
+        });
+        tippy('#flr3', {
+          content: '3 поверх - Факультет бізнесу і права',
+          placement: 'right-start'
+        });
+        tippy('#flr4', {
+          content: '4 поверх - Факультет комп`ютерних наук, фізики та математики',
+          placement: 'right-start'
+        });
+        tippy('#flr5', {
+          content: '5 поверх - Факультет комп`ютерних наук, фізики та математики',
+          placement: 'right-start'
+        });
+        tippy('#flr6', {
+          content: '6 поверх - Факультет біології, географії та екології',
+          placement: 'right-start'
+        });
+        tippy('#flr7', {
+          content: '7 поверх - Медичний факультет',
+          placement: 'right-start'
+        });
+        tippy('#flr8', {
+          content: '8 поверх - Медичний факультет',
+          placement: 'right-start'
+        });
+      </script>
+
+		<%- include('./partials/footer') %>
+
+		<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+        <script src="/js/page.js"></script>
+
+		<script>
+		// var bg1 = document.getElementById('flr1');
+		// document.getElementById('f1').addEventListener("mouseover", function(){bg1.style.fill = "rgb(56, 105, 151)";this.addEventListener("mouseout", function(){bg1.style.fill = "";});
+		// });
+		// var bg2 = document.getElementById('flr2');
+		// document.getElementById('f2').addEventListener("mouseover", function(){bg2.style.fill = "rgb(240, 207, 20)";this.addEventListener("mouseout", function(){bg2.style.fill = "";});
+		// });
+		// var bg3 = document.getElementById('flr3');
+		// document.getElementById('f3').addEventListener("mouseover", function(){bg3.style.fill = "rgb(226, 169, 10)";this.addEventListener("mouseout", function(){bg3.style.fill = "";});
+		// });
+		// var bg4 = document.getElementById('flr4');
+		// document.getElementById('f4').addEventListener("mouseover", function(){bg4.style.fill = "rgb(157, 16, 192)";this.addEventListener("mouseout", function(){bg4.style.fill = "";});
+		// });
+		// var bg5 = document.getElementById('flr5');
+		// document.getElementById('f5').addEventListener("mouseover", function(){bg5.style.fill = "rgb(10, 86, 173)";this.addEventListener("mouseout", function(){bg5.style.fill = "";});
+		// });
+		// var bg6 = document.getElementById('flr6');
+		// document.getElementById('f6').addEventListener("mouseover", function(){bg6.style.fill = "rgb(13, 150, 47)";this.addEventListener("mouseout", function(){bg6.style.fill = "";});
+		// });
+		// var bg7 = document.getElementById('flr7');
+		// document.getElementById('f7').addEventListener("mouseover", function(){bg7.style.fill = "rgb(219, 97, 178)";this.addEventListener("mouseout", function(){bg7.style.fill = "";});
+		// });
+		// var bg8 = document.getElementById('flr8');
+		// document.getElementById('f8').addEventListener("mouseover", function(){bg8.style.fill = "rgb(241, 75, 75)";this.addEventListener("mouseout", function(){bg8.style.fill = "";});
+		// });
+
+		</script>
+
+        <a href="javascript:void(0);" class="js-back-to-top back-to-top">Top</a>  
+        <script src="/vendor/jquery.min.js" type="text/javascript"></script>
+        <script src="/vendor/jquery-migrate.min.js" type="text/javascript"></script>
+        <script src="/vendor/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="/vendor/jquery.easing.js" type="text/javascript"></script>
+        <script src="/vendor/jquery.back-to-top.js" type="text/javascript"></script>
+        <script src="/vendor/jquery.smooth-scroll.js" type="text/javascript"></script>
+        <script src="/vendor/jquery.wow.min.js" type="text/javascript"></script>
+        <script src="/vendor/jquery.parallax.min.js" type="text/javascript"></script>
+        <script src="/vendor/swiper/js/swiper.jquery.min.js" type="text/javascript"></script>
+        <script src="/js/layout.min.js" type="text/javascript"></script>
+        <script src="/js/components/wow.min.js" type="text/javascript"></script>
+        <script src="/js/components/swiper.min.js" type="text/javascript"></script>
+    </body>
+</html>
