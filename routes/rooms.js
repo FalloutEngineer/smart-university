@@ -24,7 +24,7 @@ const upload = multer({
 });
 
 //get all
-router.get('/', authMiddleware, async (req, res) => {
+router.get('/', async (req, res) => {
     try{
         const rooms = await Room.find();
         res.json(rooms);
@@ -34,7 +34,7 @@ router.get('/', authMiddleware, async (req, res) => {
 });
 
 //get one
-router.get('/:number', authMiddleware, getRoom, (req, res) => {
+router.get('/:number', getRoom, (req, res) => {
     res.json(res.room)
 });
 
